@@ -20,6 +20,20 @@ router.get('/', (req, res) => {
     })
 });
 
+// Get all the accounts of a specific customer. 
+// Ilabas lahat ng accounts nung isang customer.
+router.get('/accounts/:id', (req, res) => {
+    req.getConnection((error, conn) => {
+        conn.query('SELECT a.*, c.* FROM bank.customer a INNER JOIN customer_account b ON a.customer_id = b.customer_id  INNER JOIN account c ON b.account_id = c.account_id WHERE a.customer_id =' + req.params.id, (err, rows, fields) => {
+            if(err) {
+                res.send(err);
+            } else {
+                res.send(rows);
+            }
+        })
+    })
+})
+
 // Pull the information of the specific customer
 router.get('/:id', (req, res) => {
     req.getConnection((error, conn) => {

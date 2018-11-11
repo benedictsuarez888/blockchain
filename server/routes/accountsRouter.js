@@ -10,7 +10,7 @@ const router = express.Router();
 // Pull all the accounts
 router.get('/', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('SELECT * FROM account', (err, rows, fields) => {
+        conn.query('SELECT a.*, c.* FROM bank.account a INNER JOIN customer_account b ON a.account_id = b.account_id  INNER JOIN customer c ON b.customer_id = c.customer_id', (err, rows, fields) => {
             if(err) {
                 res.send(err);
             } else {
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 // Pull the information of the specific account
 router.get('/:id', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('SELECT a.account_id, c.name, a.type_id, a.balance, a.interest_rate, a.overdraft FROM bank.account a INNER JOIN customer_account b ON a.account_id = b.account_id  INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id =' + req.params.id, (err, rows, fields) => {
+        conn.query('SELECT a.*, c.* FROM bank.account a INNER JOIN customer_account b ON a.account_id = b.account_id  INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id =' + req.params.id, (err, rows, fields) => {
             if(err) {
                 res.send(err);
             } else {
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
     })
 });
 
-// Add an account
+// Add an account - under construction pa to.
 router.post('/', (req, res) => {
     // create new account
     var account = {
@@ -41,6 +41,10 @@ router.post('/', (req, res) => {
         balance: req.params.balance,
         interest_rate: req.params.interest_rate,
         overdraft: req.params.overdraft,
+    }
+    var customerid_accountid = {
+        customer_id: req.params.customer_id,
+        account_id: req.params.account_id
     }
 
     req.getConnection((error, conn) => {

@@ -1,8 +1,41 @@
 const express = require('express');
 const app = express();
-const port = 3000;
-const nem = require("nem-sdk").default;
+const morgan = require('morgan');
+const mysql = require('mysql');
+const myConnection = require('express-myconnection');
+const config = require('./config.js');
+const dbOptions = {
+  host:       config.database.host,
+  user:       config.database.user,
+  password:   config.database.password,
+  port:       config.database.port, 
+  database:   config.database.db
+}
+const path = require('path');
+const bodyParser = require('body-parser');
+const indexRouter = require('./server/routes/indexRouter');
+const accountsRouter = require('./server/routes/accountsRouter');
+const port = parseInt(process.env.PORT, 10) || 8000;
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.use(myConnection(mysql, dbOptions, 'pool'));
+// app.use(connection(mysql, dbOptions, 'single'));
 
-app.listen(port, () => console.log(`The application is listening on port ${port}`));
+// Log requests to the console.
+app.use(morgan('dev'));
+
+// Parse incoming requests data (https://github.com/expressjs/body-parser)
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(express.static('public'));
+
+app.set('views', path.join(__dirname, 'server/views'));
+app.set('view engine', 'pug');
+
+app.use('/', indexRouter);
+app.use('/api/accounts', accountsRouter);
+
+app.listen(port, (err) => {
+    if(err) { return console.error(err); }
+    console.log(`Listening to ${port}...`);
+});

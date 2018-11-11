@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./server/routes/indexRouter');
 const customersRouter = require('./server/routes/customersRouter');
 const accountsRouter = require('./server/routes/accountsRouter');
+const transactionsRouter = require('./server/routes/transactionsRouter');
 const port = parseInt(process.env.PORT, 10) || 8000;
 
 app.use(myConnection(mysql, dbOptions, 'pool'));
@@ -36,6 +37,7 @@ app.set('view engine', 'pug');
 app.use('/', indexRouter);
 app.use('/api/customers', customersRouter);
 app.use('/api/accounts', accountsRouter);
+app.use('/api/transactions', transactionsRouter);
 
 app.listen(port, (err) => {
     if(err) { return console.error(err); }

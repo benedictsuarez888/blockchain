@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-// Add a transaction
+// Add a transaction - hindi pa to tapos
 router.post('/', (req, res) => {
     // create a new transaction
     var transaction = {

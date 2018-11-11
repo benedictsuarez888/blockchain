@@ -5,26 +5,12 @@
 const express = require('express');
 const router = express.Router();
 
-// CUSTOMERS CRUDE
+// ACCOUNTS CRUDE
 
-// Pull all the customers
+// Pull all the accounts
 router.get('/', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('SELECT * FROM customer', (err, rows, fields) => {
-            if(err) {
-                res.send(err);
-            } else {
-                res.log(rows);
-                // res.send(rows);
-            }
-        })
-    })
-});
-
-//Pull the information of the specific customer
-router.get('/:id', (req, res) => {
-    req.getConnection((error, conn) => {
-        conn.query('SELECT * FROM customer WHERE customer_id = ' + req.params.id, (err, rows, fields) => {
+        conn.query('SELECT * FROM account', (err, rows, fields) => {
             if(err) {
                 res.send(err);
             } else {
@@ -34,16 +20,31 @@ router.get('/:id', (req, res) => {
     })
 });
 
-//Add an account
-router.post('/addCustomer', (req, res) => {
-    var customer = {
-        name = req.params.name,
-        address = req.params.address,
-        contactno = req.params.contactno
+// Pull the information of the specific account
+router.get('/:id', (req, res) => {
+    req.getConnection((error, conn) => {
+        conn.query('SELECT a.account_id, c.name, a.type_id, a.balance, a.interest_rate, a.overdraft FROM bank.account a INNER JOIN customer_account b ON a.account_id = b.account_id  INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id =' + req.params.id, (err, rows, fields) => {
+            if(err) {
+                res.send(err);
+            } else {
+                res.send(rows);
+            }
+        })
+    })
+});
+
+// Add an account
+router.post('/', (req, res) => {
+    // create new account
+    var account = {
+        type: req.params.type,
+        balance: req.params.balance,
+        interest_rate: req.params.interest_rate,
+        overdraft: req.params.overdraft,
     }
 
     req.getConnection((error, conn) => {
-        conn.query('INSERT INTO customer SET ?', customer, (err, rows, fields) => {
+        conn.query('INSERT INTO account SET ?', account, (err, rows, fields) => {
             if(err) {
                 res.send(err);
             } else {
@@ -54,16 +55,18 @@ router.post('/addCustomer', (req, res) => {
 })
 
 
-//Edit an account
+// Edit an account
 router.put('/:id', (req, res) => {
-    var customer = {
-        name = req.params.name,
-        address = req.params.address,
-        contactno = req.params.contactno
+    // get the data from the request and insert it in the account variable.
+    var account = {
+        type: req.params.type,
+        balance: req.params.balance,
+        interest_rate: req.params.interest_rate,
+        overdraft: req.params.overdraft,
     }
 
     req.getConnection((error, conn) => {
-        conn.query('UPDATE customer SET ? WHERE customer_id = ' + req.params.id, customer, (err, result) => {
+        conn.query('UPDATE account SET ? WHERE account_id = ' + req.params.id, account, (err, result) => {
             if(err) {
                 res.send(err);
             } else {
@@ -73,10 +76,10 @@ router.put('/:id', (req, res) => {
     })
 })
 
-//Delete an account - just in case
+// Delete an account - just in case kung meron
 router.delete('/:id', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('DELETE customer from customer WHERE customer_id = ' + req.params.id, (err, result) => {
+        conn.query('DELETE FROM account WHERE account_id = ' + req.params.id, (err, result) => {
             if (err) {
                 res.send(err);
             } else {

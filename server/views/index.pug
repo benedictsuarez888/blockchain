@@ -1,0 +1,41 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Login
+
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="boostrap.js")
+
+    body
+        
+        div.container-fluid.text-center
+            form.form-signin(action="" method="POST")
+                .form-group
+                    h1.h3.mb-3.font-weight-normal Please Login
+            
+                .form-group
+                    label.sr-only(for = "inputID") Account Number
+                    input.form-control(type = "password" id="inputID" placeholder = "Account Number"
+                                required="" autofocus="")
+
+                .form-group
+                    label.sr-only(for = "pin") PIN
+                    input.form-control(type = "password" id ="inputPIN" placeholder = "Contact number"
+                        required="" autofocus)
+
+                .form-group
+
+                button.btn.btn-lg.btn-success.btn-block.signin(name="signin" 
+                        type ="submit") Display Balance
+            
+      
+
+
+
+        
+
+            

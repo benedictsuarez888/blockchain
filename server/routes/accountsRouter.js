@@ -34,17 +34,13 @@ router.get('/:id', (req, res) => {
 });
 
 // Add an account - under construction pa to.
-router.post('/', (req, res) => {
+router.post('/:id', (req, res) => {
     // create new account
     var account = {
         type: req.params.type,
         balance: req.params.balance,
         interest_rate: req.params.interest_rate,
         overdraft: req.params.overdraft,
-    }
-    var customerid_accountid = {
-        customer_id: req.params.customer_id,
-        account_id: req.params.account_id
     }
 
     req.getConnection((error, conn) => {

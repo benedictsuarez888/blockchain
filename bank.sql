@@ -39,7 +39,7 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-LOCK TABLES `account` WRITE;
+-- LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
 INSERT INTO `account` VALUES (1,1,20000,15.00,NULL,NULL),(2,2,50000,NULL,5000,NULL);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
@@ -63,7 +63,7 @@ CREATE TABLE `account_type` (
 -- Dumping data for table `account_type`
 --
 
-LOCK TABLES `account_type` WRITE;
+-- LOCK TABLES `account_type` WRITE;
 /*!40000 ALTER TABLE `account_type` DISABLE KEYS */;
 INSERT INTO `account_type` VALUES (1,'Savings'),(2,'Checking');
 /*!40000 ALTER TABLE `account_type` ENABLE KEYS */;
@@ -89,7 +89,7 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-LOCK TABLES `customer` WRITE;
+-- LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` VALUES (1,'Juan Dela Cruz','7114 Kundiman Street, Sampaloc','09064763492');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
@@ -114,7 +114,7 @@ CREATE TABLE `customer_account` (
 -- Dumping data for table `customer_account`
 --
 
-LOCK TABLES `customer_account` WRITE;
+-- LOCK TABLES `customer_account` WRITE;
 /*!40000 ALTER TABLE `customer_account` DISABLE KEYS */;
 INSERT INTO `customer_account` VALUES (1,1,NULL),(1,2,NULL);
 /*!40000 ALTER TABLE `customer_account` ENABLE KEYS */;
@@ -142,7 +142,7 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-LOCK TABLES `transaction` WRITE;
+-- LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
 INSERT INTO `transaction` VALUES (1,NULL,20000,1);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;

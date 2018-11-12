@@ -33,22 +33,36 @@ router.get('/:id', (req, res) => {
     })
 });
 
-// Add an account - under construction pa to.
+// Add an account
 router.post('/:id', (req, res) => {
+    // yung id na kinukuha dun sa parameter is yung customer_id. Not the account_id.
     // create new account
     var account = {
-        type: req.params.type,
-        balance: req.params.balance,
-        interest_rate: req.params.interest_rate,
-        overdraft: req.params.overdraft,
+        type_id: req.body.type_id,
+        balance: req.body.balance,
+        interest_rate: req.body.interest_rate,
+        overdraft: req.body.overdraft
     }
+
+    var customer_id = req.params.id;
 
     req.getConnection((error, conn) => {
         conn.query('INSERT INTO account SET ?', account, (err, rows, fields) => {
             if(err) {
                 res.send(err);
             } else {
-                res.send(rows);
+                var accountid = JSON.stringify(rows.insertId);
+                var customer_account = {
+                    customer_id: req.params.id,
+                    account_id: accountid
+                }
+                conn.query('INSERT INTO customer_account SET ?', customer_account, (err, rows, fields) => {
+                    if(err) {
+                        res.send(err);
+                    } else {
+                        res.send(rows);
+                    }
+                })
             }
         })
     })
@@ -57,12 +71,13 @@ router.post('/:id', (req, res) => {
 
 // Edit an account
 router.put('/:id', (req, res) => {
+    // yung ID na kinukuha dito sa parameter na ito is yung account_id.
     // get the data from the request and insert it in the account variable.
     var account = {
-        type: req.params.type,
-        balance: req.params.balance,
-        interest_rate: req.params.interest_rate,
-        overdraft: req.params.overdraft,
+        type_id: req.body.type_id,
+        balance: req.body.balance,
+        interest_rate: req.body.interest_rate,
+        overdraft: req.body.overdraft
     }
 
     req.getConnection((error, conn) => {

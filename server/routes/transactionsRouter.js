@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     })
 });
 
-// Get a transaction
+// Get a specific transaction info
 router.get('/:id', (req, res) => {
     req.getConnection((error, conn) => {
         conn.query('SELECT b.*, a.*, d.* FROM account a INNER JOIN transaction b ON a.account_id = b.account_idx INNER JOIN customer_account c ON b.account_idx = c.account_id INNER JOIN customer d ON c.customer_id = d.customer_id WHERE d.customer_id = ' + req.params.id, (err, rows, fields) => {
@@ -33,17 +33,11 @@ router.get('/:id', (req, res) => {
     })
 })
 
-// Add a transaction - hindi pa to tapos
-router.post('/', (req, res) => {
-    // create a new transaction
-    var transaction = {
-        amount: req.params.amount,
-        account_idx: req.params.account_idx
-    }
-
+// Get all the transactions info of the customer
+router.get('/customer/:id', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('INSERT INTO customer SET ?', transaction, (err, rows, fields) => {
-            if(err){
+        conn.query('SELECT a.*, c.* FROM transaction a INNER JOIN customer_account b ON a.account_idx = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE c.customer_id = ' + req.params.id, (err, rows, fields) => {
+            if (err) {
                 res.send(err);
             } else {
                 res.send(rows);
@@ -51,6 +45,46 @@ router.post('/', (req, res) => {
         })
     })
 })
+
+// Add a transaction
+router.post('/:id', (req, res) => {
+    // create a new transaction
+    // Yung id na kinukuha sa parameter is yung account_id
+    var account_id = req.params.id;
+    var amountOfTransaction = req.body.amount;
+    var transaction = {
+        amount: req.body.amount,
+        account_idx: account_id
+    }
+
+    req.getConnection((error, conn) => {
+        conn.query('INSERT INTO transaction SET ?', transaction, (err, rows, fields) => {
+            if(err){
+                res.send(err);
+            } else {
+                // var transactionid = JSON.stringify(rows.insertId);
+                conn.query('SELECT a.balance FROM account a INNER JOIN customer_account b ON a.account_id = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id = ' + req.params.id, (err, rows1, fields) => {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        var current_balance = JSON.stringify(rows1[0].balance);
+                        conn.query('SELECT ' + current_balance + ' + ' + transaction.amount + ' AS new_balance', (err, rows, fields) => {
+                            if (err) {
+                                res.send(err)
+                            } else {
+                                var new_balance = JSON.stringify(rows[0].new_balance)
+                                conn.query('UPDATE account  SET ? WHERE account_id = ' + account_id, {balance: new_balance}, (err, rows, fields) => {
+                                    res.send(rows);
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
+})
+
 // Edit a transaction
 
 // Delete a transaction

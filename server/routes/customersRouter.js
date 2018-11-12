@@ -51,9 +51,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     // create new customer
     var customer = {
-        name: req.params.name,
-        address: req.params.address,
-        contactno: req.params.contactno
+        name: req.body.name,
+        address: req.body.address,
+        contactno: req.body.contactno
     }
 
     req.getConnection((error, conn) => {
@@ -72,9 +72,9 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     // get the data from the request and insert it in the customer variable.
     var customer = {
-        name: req.params.name,
-        address: req.params.address,
-        contactno: req.params.contactno
+        name: req.body.name,
+        address: req.body.address,
+        contactno: req.body.contactno
     }
 
     req.getConnection((error, conn) => {

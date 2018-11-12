@@ -37,11 +37,13 @@ router.get('/:id', (req, res) => {
 router.post('/:id', (req, res) => {
     // create new account
     var account = {
-        type: req.params.type,
-        balance: req.params.balance,
-        interest_rate: req.params.interest_rate,
-        overdraft: req.params.overdraft,
+        type: req.body.type,
+        balance: req.body.balance,
+        interest_rate: req.body.interest_rate,
+        overdraft: req.body.overdraft,
     }
+
+    var customer_id = req.params.id;
 
     req.getConnection((error, conn) => {
         conn.query('INSERT INTO account SET ?', account, (err, rows, fields) => {
@@ -49,6 +51,7 @@ router.post('/:id', (req, res) => {
                 res.send(err);
             } else {
                 res.send(rows);
+                 var account_id = rows.account_id;
             }
         })
     })
@@ -59,10 +62,10 @@ router.post('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     // get the data from the request and insert it in the account variable.
     var account = {
-        type: req.params.type,
-        balance: req.params.balance,
-        interest_rate: req.params.interest_rate,
-        overdraft: req.params.overdraft,
+        type: req.body.type,
+        balance: req.body.balance,
+        interest_rate: req.body.interest_rate,
+        overdraft: req.body.overdraft,
     }
 
     req.getConnection((error, conn) => {

@@ -37,8 +37,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     // create a new transaction
     var transaction = {
-        amount: req.params.amount,
-        account_idx: req.params.account_idx
+        amount: req.body.amount,
+        account_idx: req.body.account_idx
     }
 
     req.getConnection((error, conn) => {

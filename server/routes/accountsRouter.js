@@ -33,14 +33,14 @@ router.get('/:id', (req, res) => {
     })
 });
 
-// Add an account - under construction pa to.
+// Add an account
 router.post('/:id', (req, res) => {
     // create new account
     var account = {
-        type: req.body.type,
+        type_id: req.body.type_id,
         balance: req.body.balance,
         interest_rate: req.body.interest_rate,
-        overdraft: req.body.overdraft,
+        overdraft: req.body.overdraft
     }
 
     var customer_id = req.params.id;
@@ -50,8 +50,18 @@ router.post('/:id', (req, res) => {
             if(err) {
                 res.send(err);
             } else {
-                res.send(rows);
-                 var account_id = rows.account_id;
+                var accountid = JSON.stringify(rows.insertId);
+                var customer_account = {
+                    customer_id: req.params.id,
+                    account_id: accountid
+                }
+                conn.query('INSERT INTO customer_account SET ?', customer_account, (err, rows, fields) => {
+                    if(err) {
+                        res.send(err);
+                    } else {
+                        res.send(rows);
+                    }
+                })
             }
         })
     })

@@ -1,0 +1,47 @@
+html(lang="en")
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="../bootstrap/css/bootstrap.css")
+        link(rel="stylesheet" href="../css/styles.css")
+        link(rel="icon" type="image/png" href="image/123.png")
+
+    body(background="image/123.png")
+        .header
+            .container
+                .row
+                    .col-md-12
+                        .logo 
+                            h1 
+                                a(href="#") Blockchain Future of Banking
+        br
+        br
+        br
+        br
+        br
+        .page-content.container
+            .row
+            .col-md-4.col-md-offset-4
+                .login-wrapper
+                    .box
+                        .content-wrap
+                            h6 Enter Account Number
+                            form(action="login.php", method="post")
+                                input#username.form-control(type="text", placeholder="Account Number", name="accountnumber")
+                                input#password.form-control(type="text", placeholder="Contact number", name="accountnumber")
+                                br
+                                button.btn.btn-primary(input="", type="submit" name="button")
+                                    b Continue
+                                br
+                                br
+                                p
+                                    |Not a member? 
+                                    a(href="") Register here
+
+        //- .clear
+        //- footer.footer.navbar-fixied-bottom
+
+        script(src="jquery/jquery.js")
+        script(src="bootstrap/js/bootstrap.min.js")
+        script(src="js/custom.js")
+
+

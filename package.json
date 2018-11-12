@@ -18,12 +18,14 @@
   "homepage": "https://github.com/benedictsuarez888/blockchain#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "css": "^2.2.4",
     "express": "^4.16.4",
     "express-myconnection": "^1.0.4",
     "html": "^1.0.0",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "nem-sdk": "^1.6.7",
+    "php": "0.0.1",
     "pug": "^2.0.3"
   }
 }

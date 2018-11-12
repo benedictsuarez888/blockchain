@@ -1,47 +1,41 @@
-html(lang="en")
+html
     head
-        meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet" href="../bootstrap/css/bootstrap.css")
-        link(rel="stylesheet" href="../css/styles.css")
-        link(rel="icon" type="image/png" href="image/123.png")
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Login
 
-    body(background="image/123.png")
-        .header
-            .container
-                .row
-                    .col-md-12
-                        .logo 
-                            h1 
-                                a(href="#") Blockchain Future of Banking
-        br
-        br
-        br
-        br
-        br
-        .page-content.container
-            .row
-            .col-md-4.col-md-offset-4
-                .login-wrapper
-                    .box
-                        .content-wrap
-                            h6 Enter Account Number
-                            form(action="login.php", method="post")
-                                input#username.form-control(type="text", placeholder="Account Number", name="accountnumber")
-                                input#password.form-control(type="text", placeholder="Contact number", name="accountnumber")
-                                br
-                                button.btn.btn-primary(input="", type="submit" name="button")
-                                    b Continue
-                                br
-                                br
-                                p
-                                    |Not a member? 
-                                    a(href="") Register here
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="boostrap.js")
 
-        //- .clear
-        //- footer.footer.navbar-fixied-bottom
+    body
+        
+        div.container-fluid.text-center
+            form.form-signin(action="" method="POST")
+                .form-group
+                    h1.h3.mb-3.font-weight-normal Please Login
+            
+                .form-group
+                    label.sr-only(for = "inputID") Account Number
+                    input.form-control(type = "password" id="inputID" placeholder = "Account Number"
+                                required="" autofocus="")
 
-        script(src="jquery/jquery.js")
-        script(src="bootstrap/js/bootstrap.min.js")
-        script(src="js/custom.js")
+                .form-group
+                    label.sr-only(for = "pin") PIN
+                    input.form-control(type = "password" id ="inputPIN" placeholder = "Contact number"
+                        required="" autofocus)
+
+                .form-group
+
+                button.btn.btn-lg.btn-success.btn-block.signin(name="signin" 
+                        type ="submit") Display Balance
+            
+      
 
 
+
+        
+
+            

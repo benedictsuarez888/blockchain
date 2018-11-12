@@ -29,7 +29,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static('public')); 
 
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'pug');

@@ -35,6 +35,7 @@ router.get('/:id', (req, res) => {
 
 // Add an account
 router.post('/:id', (req, res) => {
+    // yung id na kinukuha dun sa parameter is yung customer_id. Not the account_id.
     // create new account
     var account = {
         type_id: req.body.type_id,
@@ -70,12 +71,13 @@ router.post('/:id', (req, res) => {
 
 // Edit an account
 router.put('/:id', (req, res) => {
+    // yung ID na kinukuha dito sa parameter na ito is yung account_id.
     // get the data from the request and insert it in the account variable.
     var account = {
-        type: req.body.type,
+        type_id: req.body.type_id,
         balance: req.body.balance,
         interest_rate: req.body.interest_rate,
-        overdraft: req.body.overdraft,
+        overdraft: req.body.overdraft
     }
 
     req.getConnection((error, conn) => {

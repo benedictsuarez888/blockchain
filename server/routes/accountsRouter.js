@@ -33,6 +33,19 @@ router.get('/:id', (req, res) => {
     })
 });
 
+// Display the balance of a specific
+router.get('/balance/:id', (req, res) => {
+    req.getConnection((error, conn) => {
+        conn.query('SELECT a.balance FROM customer b INNER JOIN customer_account c ON b.customer_id = c.customer_id INNER JOIN account a ON c.account_id = a.account_id where b.customer_id = ' + req.params.id, (err, rows, fields) => {
+            if(err) {
+                res.send(err);
+            } else {
+                res.send(rows);
+            }
+        })
+    })
+})
+
 // Add an account
 router.post('/:id', (req, res) => {
     // yung id na kinukuha dun sa parameter is yung customer_id. Not the account_id.

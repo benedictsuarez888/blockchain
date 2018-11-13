@@ -92,7 +92,7 @@ router.post('/:id', (req, res) => {
                         res.send(err);
                     } else {
                         var email = JSON.stringify(rows1[0].email);
-                        var contactno = contactno = JSON.stringify(rows1[0].contactno);
+                        const contactno = JSON.stringify(rows1[0].contactno);
                         console.log(contactno);
                         var current_balance = JSON.stringify(rows1[0].balance);
                         conn.query('SELECT ' + current_balance + ' + ' + transaction.amount + ' AS new_balance', (err, rows, fields) => {
@@ -122,7 +122,7 @@ router.post('/:id', (req, res) => {
                                     });
 
                                     // SMS Integration
-                                    const phoneNumber = "+63" + contactno;
+                                    const phoneNumber = contactno;
                                     const message = "we noticed that your account is below the maintaining balance! we suggest that you go to the nearest unionbank site to deposit so that you won't be charged by unnecessary fees. thank you ";
                                     const messageType = "ARN";
 

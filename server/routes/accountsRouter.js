@@ -44,6 +44,7 @@ router.post('/balance', (req, res) => {
                     balance: JSON.stringify(rows[0].balance),
                     name: JSON.stringify(rows[0].name)
                 }
+                
                 res.send(response);
             }
         })

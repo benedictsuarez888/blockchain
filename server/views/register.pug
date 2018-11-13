@@ -15,68 +15,41 @@ html
     body
         .container-fluid
             form.needs-validation(novalidate="" method="")
+                
                 .form-group
-                    h1.h3.mb3.font-weight-normal Register Here
+                    h1.h3.mb3.font-weight-normal Register here
                     hr
-
-                .form-group.row
-                    
-                    .col-md-6.mb-3
-                        label.sr-only(for="acct") Account Number
-                        input.form-control(type = "number" name = "acctnum" id="acctid" 
-                            placeholder = "Enter your account #" value = "" required="")
-                        
-                        .invalid-feedback account number is required
-
-                    .col-md-6.mb-3
-                        label.sr-only(for="pin1") PIN1
-                        input.form-control(type = "number" name = "pin1" id ="pin1" 
-                            placeholder = "Enter your PIN" value ="" required = "")
-
-                        .invalid-feedback PIN is required
-
-                    .col-md-6
-
-                    .col-md-6.mb-3
-                        label.sr-only(for="pin2") PIN2
-                        input.form-control(type = "number" name = "pin2" id = "pin2"
-                            placeholder = "Confirm your PIN" value = "" required="")
-
-                        .invalid-feedback PIN dot not match
-                
-                
-                .form-group.row
-                    h1.h3.mb3.font-weight-normal.text-center Personal information
-               
-                    .col-md-6.mb-3
-                        label.sr-only(for="lname") Last name
-                        input.form-control(name="lastname" id="lname"
-                            placeholder = "Enter your last name here" value = "" required ="")
-                        
-                        .invalid-feedback last name is a must
-
-                    .col-md-6.mb-3
-                        label.sr-only(for="fname") First name
-                        input.form-control(name="firstname" id="fname"
-                            placeholder = "Enter your first name here" value = "" required ="")
-                            
-                        .invalid-feedback 
-                            p first name is a must
                 
                 .form-group
 
-                    textarea.form-control.text-center(name="address" placeholder = "Address")
-                    label
-
-                    label.sr-only(for="contact") Contact
-                    input.form-control.text-center(name="contact" id="contact" 
-                        placeholder = "Enter your Contact #" value = "" required="")
-
-                    br                  
-                    label Birthday
-                    input.form-control.text-center(type="date" name = "bday")
+                    label.sr-only(for="funame") Full Name
+                    input.form-control.text-center(name="fuName" for="funame"
+                        placeholder="Enter your full name here" value="" required="")
                     
-                    br
+                    .invalid-feedback.text-center Your name is Required
+
+                .form-group
+
+                    textarea.form-control.text-center(name="add" placeholder = "Address")
+
+                .form-group
+
+                    label.sr-only(for="contact") contact number
+                    input.form-control.text-center(type="number" name="contact" for="contact"
+                        placeholder="Enter your contact number here" value="" required="")
+                    
+                    .invalid-feedback.text-center your number is Required
+                
+                .form-group
+
+                    label.sr-only(for="email") email
+                    input.form-control.text-center(name="email" for="email"
+                        placeholder=" email here ex. jdlcrz@gmail.com" value="" required="")
+                    
+                    .invalid-feedback.text-center Your email is Required
+        
+                .form-group
+
                     button.btn.btn-lg.btn-info.btn-block(name="register" 
                         type ="submit") Register
 

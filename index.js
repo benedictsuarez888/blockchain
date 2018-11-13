@@ -18,6 +18,19 @@ const customersRouter = require('./server/routes/customersRouter');
 const accountsRouter = require('./server/routes/accountsRouter');
 const transactionsRouter = require('./server/routes/transactionsRouter');
 const port = parseInt(process.env.PORT, 10) || 8000;
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  secure: false,
+  port: 25,
+  auth: {
+    user: 'sampler098@gmail.com',
+    pass: 'ABCabc123321'
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 app.use(myConnection(mysql, dbOptions, 'pool'));
 // app.use(connection(mysql, dbOptions, 'single'));

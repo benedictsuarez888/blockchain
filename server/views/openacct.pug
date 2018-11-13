@@ -1,0 +1,55 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Open Account Form
+
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="bootstrap.js")
+        script(name="javascript/text" src="error.js")
+        
+
+    body
+        .container-fluid
+            form.needs-validation(novalidate="" method="")
+                .form-group
+                    h1.h3.mb3.font-weight-normal Please complete the form
+                    hr
+                
+                .form-group
+                    label.sr-only(for = "accountType") Account Type
+                    select.form-control.text-center(name = "type_id" for="accountType")
+                        option(value = "" selected disabled hidden) Please choose your account type
+                        option(value = "1") Savings
+                        option(value = "2") Checking
+
+                        .invalid-feedback.-text-center Please choose your account type
+                
+                .form-group
+
+                    label.sr-only(for="bal") Balance
+                    input.form-control.text-center(name="balance" for="bal"
+                        placeholder="Enter your amount here" value="" required="")
+                    
+                    .invalid-feedback.text-center We need your balance here
+
+                .form-group
+
+                    label Interest rate: 10% per P10,000.00
+
+                .form-group
+
+                    label.sr-only(for="od") Overdraft
+                    input.form-control.text-center(name="overdraft" for="od"
+                        placeholder="Overdraft" value="" required="")
+        
+                .form-group
+
+                    button.btn.btn-lg.btn-info.btn-block(name="register" 
+                        type ="submit") Submit Account
+
+
+                    

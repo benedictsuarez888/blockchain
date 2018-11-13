@@ -34,13 +34,17 @@ router.get('/:id', (req, res) => {
 });
 
 // Display the balance of a specific
-router.get('/balance/:id', (req, res) => {
+router.post('/balance', (req, res) => {
     req.getConnection((error, conn) => {
-        conn.query('SELECT a.balance FROM customer b INNER JOIN customer_account c ON b.customer_id = c.customer_id INNER JOIN account a ON c.account_id = a.account_id where b.customer_id = ' + req.params.id, (err, rows, fields) => {
+        conn.query('SELECT a.balance, c.name FROM account a INNER JOIN customer_account b ON a.account_id = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id = ? AND a.type_id = ? AND c.contactno = ?', [parseInt(req.body.account_id), parseInt(req.body.type_id), req.body.contactno], (err, rows, fields) => {
             if(err) {
-                res.send(err);
+                res.send(`Error SQL Query. ${err}`);
             } else {
-                res.send(rows);
+                var response = {
+                    balance: JSON.stringify(rows[0].balance),
+                    name: JSON.stringify(rows[0].name)
+                }
+                res.send(response);
             }
         })
     })

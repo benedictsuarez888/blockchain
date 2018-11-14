@@ -53,7 +53,8 @@ router.post('/', (req, res) => {
     var customer = {
         name: req.body.name,
         address: req.body.address,
-        contactno: req.body.contactno
+        contactno: req.body.contactno,
+        email: req.body.email
     }
 
     req.getConnection((error, conn) => {

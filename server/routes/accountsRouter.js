@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
     })
 });
 
-// Display the balance of a specific
+// Display the balance of a specific account
 router.post('/balance', (req, res) => {
     req.getConnection((error, conn) => {
         conn.query('SELECT a.balance, c.name FROM account a INNER JOIN customer_account b ON a.account_id = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id = ? AND a.type_id = ? AND c.contactno = ?', [parseInt(req.body.account_id), parseInt(req.body.type_id), req.body.contactno], (err, rows, fields) => {

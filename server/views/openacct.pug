@@ -14,7 +14,7 @@ html
 
     body
         .container-fluid
-            form.needs-validation(novalidate="" method="")
+            form.needs-validation(action="/api/customers/:id" novalidate="" method="POST")
                 .form-group
                     h1.h3.mb3.font-weight-normal Please complete the form
                     hr
@@ -22,11 +22,11 @@ html
                 .form-group
                     label.sr-only(for = "accountType") Account Type
                     select.form-control.text-center(name = "type_id" for="accountType")
-                        option(value = "" selected disabled hidden) Please choose your account type
+                        option(value = "" selected disabled hidden) Please choose account type
                         option(value = "1") Savings
                         option(value = "2") Checking
 
-                        .invalid-feedback.-text-center Please choose your account type
+                        .invalid-feedback.-text-center Please choose account type
                 
                 .form-group
 
@@ -34,11 +34,13 @@ html
                     input.form-control.text-center(name="balance" for="bal"
                         placeholder="Enter your amount here" value="" required="")
                     
-                    .invalid-feedback.text-center We need your balance here
+                    .invalid-feedback.text-center We need balance here
 
                 .form-group
 
                     label Interest rate: 10% per P10,000.00
+                    input.form-control.text-center(name="interest_rate" for="bal"
+                        placeholder="Enter the percentage here" value="" required="")
 
                 .form-group
 

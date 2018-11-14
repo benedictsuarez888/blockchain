@@ -14,7 +14,7 @@ html
 
     body
         .container-fluid
-            form.needs-validation(novalidate="" method="")
+            form.needs-validation(action="/api/customers" novalidate="" method="POST")
                 
                 .form-group
                     h1.h3.mb3.font-weight-normal Register here
@@ -23,19 +23,19 @@ html
                 .form-group
 
                     label.sr-only(for="funame") Full Name
-                    input.form-control.text-center(name="fuName" for="funame"
-                        placeholder="Enter your full name here" value="" required="")
+                    input.form-control.text-center(for="funame"
+                        placeholder="Enter your full name here" value="" required="" name="name")
                     
                     .invalid-feedback.text-center Your name is Required
 
                 .form-group
 
-                    textarea.form-control.text-center(name="add" placeholder = "Address")
+                    textarea.form-control.text-center(placeholder = "Address" name="address")
 
                 .form-group
 
                     label.sr-only(for="contact") contact number
-                    input.form-control.text-center(type="number" name="contact" for="contact"
+                    input.form-control.text-center(type="number" name="contactno" for="contact"
                         placeholder="Enter your contact number here" value="" required="")
                     
                     .invalid-feedback.text-center your number is Required

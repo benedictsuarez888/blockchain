@@ -17,4 +17,8 @@ router.get('/openacct/:id', (req, res) => {
     res.render("openacct")
 })
 
+router.get('/customers', (req, res) => {
+    res.render("customers")
+})
+
 module.exports = router;

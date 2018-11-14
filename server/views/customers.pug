@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        title Pug
+        script(type='text/javascript').
+            if (foo) bar(1 + 5)
+    body
+        h1 Pug - node template engine
+            ul#customersVue
+                li(v-for="customer in customers") {{ customer.name }}
+
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+    script(src="/customers-vue.js")
+            

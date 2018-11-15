@@ -19,6 +19,7 @@ let transporter = nodemailer.createTransport({
 });
 const puretext = require('puretext');
 require('request');
+const nem = require('nem-sdk').default;
 
 // TRANSACTIONS CRUDE
 
@@ -132,6 +133,66 @@ router.post('/:id', (req, res) => {
                 })
             }
         })
+    })
+})
+
+// Money Transfer
+
+router.post('/transfer/:id', (req, res)=>{
+    // yung ID dito is yung account_id nung sender.
+
+    var money_transfer = {
+        account_idx: req.body.account_id,
+        amount: req.body.amount,
+        message: req.body.message
+    }
+
+    var account_id = money_transfer.account_idx;
+    var amount = money_transfer.amount;
+    var message = money_transfer.message;
+
+    console.log(`INFO: ${account_id}, ${amount}, ${message}`);
+
+
+    var endpoint = nem.model.objects.create('endpoint')(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+
+    req.getConnection((error, conn) => {
+        conn.query('SELECT account.addressKey FROM account WHERE account.account_id = ' + account_id, (err, rows, fields) =>{
+            if(err){
+                res.send(err);
+            } else {
+                var receiver_addressKey = rows[0].addressKey;
+
+                conn.query('SELECT account.keyPair, account.addressKey FROM account WHERE account.account_id =' + req.params.id, (err, rows, fields) => {
+                    if(err){
+                        res.send(err);
+                    } else {
+
+                        var sender_keyPair = rows[0].keyPair;
+                        var sender_addressKey = rows[0].addressKey;
+                        console.log(sender_keyPair);
+                        console.log(sender_addressKey);
+
+                        var common = nem.model.objects.create('common')('', sender_keyPair);
+                        const transferTransaction = nem.model.objects.create('transferTransaction')(receiver_addressKey, amount, message);
+                        const preparedTransaction = nem.model.transactions.prepare('transferTransaction')(common, transferTransaction, nem.model.network.data.testnet.id);
+
+                        nem.model.transactions.send(common, preparedTransaction, endpoint).then(
+                            function(res) {
+                                console.log(res);
+                            },
+                            function(err) {
+                                console.log(err);
+                            }
+                        )
+
+                    }
+
+                })
+                
+            }
+        } )
+        
     })
 })
 

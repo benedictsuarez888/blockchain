@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router = express.Router();
+const nem = require('nem-sdk').default;
 
 // ACCOUNTS CRUDE
 
@@ -40,6 +41,7 @@ router.post('/balance', (req, res) => {
             if(err) {
                 res.send(`Error SQL Query. ${err}`);
             } else {
+                console.log(rows);
                 var response = {
                     balance: JSON.stringify(rows[0].balance),
                     name: JSON.stringify(rows[0].name)
@@ -55,11 +57,26 @@ router.post('/balance', (req, res) => {
 router.post('/:id', (req, res) => {
     // yung id na kinukuha dun sa parameter is yung customer_id. Not the account_id.
     // create new account
+
+    let rb32 = nem.crypto.nacl.randomBytes(32);
+    let pkey = nem.utils.convert.ua2hex(rb32);
+
+    let keyPair = nem.crypto.keyPair.create(pkey);
+
+    let nemAddress = nem.utils.format.pubToAddress(
+        keyPair.publicKey.toString(),
+        -104
+    );
+    console.log("keypair public: " + keyPair.publicKey.toString());
+    console.log("address: " + nemAddress);
+
     var account = {
         type_id: req.body.type_id,
         balance: req.body.balance,
         interest_rate: req.body.interest_rate,
-        overdraft: req.body.overdraft
+        overdraft: req.body.overdraft,
+        keyPair: keyPair.publicKey.toString(),
+        addressKey: nemAddress
     }
 
     var customer_id = req.params.id;

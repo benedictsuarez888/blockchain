@@ -14,7 +14,7 @@ html
 
     body
         .container-fluid
-            form.needs-validation(action="/api/customers/:id" novalidate="" method="POST")
+            form.needs-validation(action="'/api/accounts/' + accounts.account_id" novalidate="" method="POST")
                 .form-group
                     h1.h3.mb3.font-weight-normal Please complete the form
                     hr

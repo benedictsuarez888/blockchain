@@ -1,15 +1,35 @@
-doctype html
-html(lang="en")
+html
     head
-        title Pug
-        script(type='text/javascript').
-            if (foo) bar(1 + 5)
-    body
-        h1 Pug - node template engine
-            ul#customersVue
-                li(v-for="customer in customers") {{ customer.name }}
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Customer's Information
 
-    script(src="https://unpkg.com/axios/dist/axios.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="styleCustomer.css")
+        script(name="javascript/text" src="boostrap.js")
+        title Pug
+        //- script(type='text/javascript').
+        //-     if (foo) bar(1 + 5)
+    body
+        div.container-fluid.text-center
+            h1.h3.mb-3.font-weight-normal Customer's Information
+                table.table#customersVue
+                    tr
+                        th Name
+                        th Address
+                        th Contact No.
+                        th Email
+                        th Action
+                    tr(v-for="customer in customers")
+                        td {{ customer.name }}
+                        td {{ customer.address }}
+                        td {{ customer.contactno }}
+                        td {{ customer.email }}
+                        td
+                           a.btn.btn.xs.btn-outline-primary(:href="'/openacct/' + customer.customer_id") Open Account
+
+    script(src="/axios.min.js")
+    script(src="/vue.js")
     script(src="/customers-vue.js")
-            

@@ -1,3 +1,5 @@
+openacct.pug
+
 html
     head
         meta(charset="UTF-8")
@@ -13,45 +15,47 @@ html
         
 
     body
-        .container-fluid
-            form.needs-validation(action="'/api/accounts/' + accounts.account_id" novalidate="" method="POST")
-                .form-group
-                    h1.h3.mb3.font-weight-normal Please complete the form
-                    hr
-                
-                .form-group
-                    label.sr-only(for = "accountType") Account Type
-                    select.form-control.text-center(name = "type_id" for="accountType")
-                        option(value = "" selected disabled hidden) Please choose account type
-                        option(value = "1") Savings
-                        option(value = "2") Checking
-
-                        .invalid-feedback.-text-center Please choose account type
-                
-                .form-group
-
-                    label.sr-only(for="bal") Balance
-                    input.form-control.text-center(name="balance" for="bal"
-                        placeholder="Enter your amount here" value="" required="")
+        main#accountVue(role="main" class="container")
+            .container-fluid
+                form.needs-validation#addAccountsForm(action="/api/accounts/ + accounts.account_id" novalidate="" method="POST")
+                    .form-group
+                        h1.h3.mb3.font-weight-normal Please complete the form
+                        hr
                     
-                    .invalid-feedback.text-center We need balance here
+                    .form-group
+                        label.sr-only(for = "accountType") Account Type
+                        select.form-control.text-center(name = "type_id" for="accountType" v-model = "type_id")
+                            option(value = "" selected disabled hidden) Please choose account type
+                            option(value = "1") Savings
+                            option(value = "2") Checking
 
-                .form-group
-
-                    label Interest rate: 10% per P10,000.00
-                    input.form-control.text-center(name="interest_rate" for="bal"
-                        placeholder="Enter the percentage here" value="" required="")
-
-                .form-group
-
-                    label.sr-only(for="od") Overdraft
-                    input.form-control.text-center(name="overdraft" for="od"
-                        placeholder="Overdraft" value="" required="")
-        
-                .form-group
-
-                    button.btn.btn-lg.btn-info.btn-block(name="register" 
-                        type ="submit") Submit Account
-
-
+                            .invalid-feedback.-text-center Please choose account type
                     
+                    .form-group
+
+                        label.sr-only(for="bal") Balance
+                        input.form-control.text-center(name="balance" for="bal"
+                            placeholder="Enter your amount here" value="" required="" v-model = "balance")
+                        
+                        .invalid-feedback.text-center We need balance here
+
+                    .form-group
+
+                        label Interest rate: 10% per P10,000.00
+                        input.form-control.text-center(name="interest_rate" for="bal"
+                            placeholder="Enter the percentage here" value="" required="" v-model = "interest_rate")
+
+                    .form-group
+
+                        label.sr-only(for="od") Overdraft
+                        input.form-control.text-center(name="overdraft" for="od"
+                            placeholder="Overdraft" value="" required="" v-model = "overdraft")
+            
+                    .form-group
+
+                        button.btn.btn-lg.btn-info.btn-block(name="register" 
+                            type ="submit" v-on:click = "addAccounts") Submit Account
+
+    script(src="/axios-min.js")
+    script(src="/vue.js")
+    script(src="/accounts-vue.js")

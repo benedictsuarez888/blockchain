@@ -2,7 +2,7 @@
   var customersVue = new Vue({
     el: '#customersVue',
     data: {
-      customer_id: null,
+      // customer_id: null,
       name: null,
       address: null,
       contactno: null,
@@ -19,6 +19,6 @@
         .catch(function(res) {
             self.customers = [];
         });
-    }
+    },
   })
 })();

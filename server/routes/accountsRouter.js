@@ -36,18 +36,40 @@ router.get('/:id', (req, res) => {
 
 // Display the balance of a specific account
 router.post('/balance', (req, res) => {
+    console.log("Display balance API.");
+    var getForm = {
+        account_idx: req.body.account_id,
+        type_id: req.body.type_id,
+        contactno: req.body.contactno
+    }
+    
     req.getConnection((error, conn) => {
-        conn.query('SELECT a.balance, c.name FROM account a INNER JOIN customer_account b ON a.account_id = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id = ? AND a.type_id = ? AND c.contactno = ?', [parseInt(req.body.account_id), parseInt(req.body.type_id), req.body.contactno], (err, rows, fields) => {
+        conn.query('SELECT a.addressKey, c.name FROM account a INNER JOIN customer_account b ON a.account_id = b.account_id INNER JOIN customer c ON b.customer_id = c.customer_id WHERE a.account_id = ? AND a.type_id = ? AND c.contactno = ?', [getForm.account_idx, getForm.type_id, getForm.contactno], (err, rows, fields) => {
             if(err) {
                 res.send(`Error SQL Query. ${err}`);
             } else {
                 console.log(rows);
-                var response = {
-                    balance: JSON.stringify(rows[0].balance),
-                    name: JSON.stringify(rows[0].name)
-                }
-                
-                res.send(response);
+                var addressKey = rows[0].addressKey;
+                console.log(addressKey);
+
+                var endpoint = nem.model.objects.create('endpoint')(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+                var getResponse = nem.com.requests.account.data(endpoint, addressKey).then(
+                    function(response){
+                        var iBalance = response.account.balance;
+                        var fmt = nem.utils.format.nemValue(iBalance);
+                        var tBalance = fmt[0] + "." + fmt[1];
+                        var balance = Math.round(tBalance*10)/10;
+                        var pesoValue = balance*0.0945*52.73;
+                        console.log(pesoValue)
+                        var response1 = {
+                            name: JSON.stringify(rows[0].name),
+                            balance: pesoValue
+                        }
+                        res.send(response1);
+                    },
+                    function(err){
+                        console.log(err);
+                    });
             }
         })
     })

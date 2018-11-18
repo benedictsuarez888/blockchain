@@ -137,7 +137,6 @@ router.post('/:id', (req, res) => {
 })
 
 // Money Transfer
-
 router.post('/transfer/:id', (req, res)=>{
     // yung ID dito is yung account_id nung sender.
 
@@ -148,7 +147,8 @@ router.post('/transfer/:id', (req, res)=>{
     }
 
     var account_id = money_transfer.account_idx;
-    var amount = money_transfer.amount;
+    var amount1 = money_transfer.amount;
+    var amount = money_transfer.amount/52.73/0.0945;
     var message = money_transfer.message;
 
     console.log(`INFO: ${account_id}, ${amount}, ${message}`);
@@ -162,14 +162,18 @@ router.post('/transfer/:id', (req, res)=>{
                 res.send(err);
             } else {
                 var receiver_addressKey = rows[0].addressKey;
+                console.log(receiver_addressKey);
 
-                conn.query('SELECT account.keyPair, account.addressKey FROM account WHERE account.account_id =' + req.params.id, (err, rows, fields) => {
+                conn.query('SELECT account.keyPair, account.addressKey, customer.email, customer.contactno FROM account INNER JOIN customer_account ON account.account_id = customer_account.account_id INNER JOIN customer ON customer_account.customer_id = customer.customer_id WHERE account.account_id =' + req.params.id, (err, rows, fields) => {
                     if(err){
                         res.send(err);
                     } else {
 
                         var sender_keyPair = rows[0].keyPair;
                         var sender_addressKey = rows[0].addressKey;
+                        var sender_addressKey1 = JSON.stringify(rows[0].addressKey);
+                        var sender_email = rows[0].email;
+                        var sender_contactno = rows[0].contactno;
                         console.log(sender_keyPair);
                         console.log(sender_addressKey);
 
@@ -178,18 +182,92 @@ router.post('/transfer/:id', (req, res)=>{
                         const preparedTransaction = nem.model.transactions.prepare('transferTransaction')(common, transferTransaction, nem.model.network.data.testnet.id);
 
                         nem.model.transactions.send(common, preparedTransaction, endpoint).then(
-                            function(res) {
-                                console.log(res);
+                            function(response) {
+                                res.send(response);
                             },
                             function(err) {
-                                console.log(err);
+                                res.send(err);
                             }
                         )
 
-                    }
+                        nem.com.requests.account.data(endpoint, sender_addressKey).then(
+                            function(response1){
+                                var iBalance = response1.account.balance;
+                                var fmt = nem.utils.format.nemValue(iBalance);
+                                var tBalance = fmt[0] + "." + fmt[1];
+                                var balance = Math.round(tBalance*10)/10;
+                                var pesoValue = Math.round(balance*0.0945*52.73);
+                                console.log(pesoValue)
+                                
+                                if(pesoValue < 1000) {
+                                    // Email Integration
+                                    let HelperOptions = {
+                                        from: 'sampler098@gmail.com',
+                                        to: sender_email,
+                                        subject: 'Reminder from UnionBank',
+                                        text: `You've sent an amount of ${amount1} to ${account_id}. Your current balance is ${pesoValue}. We have noticed that your account is below the maintaining balance. We suggest that you go to the nearest UnionBank branch to deposit so that you would not be charged by unnecessary fees. Thank you!`
+                                      };
+                                      
+                                      
+                                    transporter.sendMail(HelperOptions, (error, info) => {
+                                    if (error) {
+                                        return console.log(error);
+                                    }
+                                    console.log("The message was sent!");
+                                    console.log(info);
+                                    });
 
+                                    // SMS Integration
+                                    let text = {
+                                        toNumber: sender_contactno,
+                                        fromNumber: '+19033293627',
+                                        smsBody: `You've sent an amount of ${amount1} to ${account_id}. Your current balance is ${pesoValue}. We have noticed that your account is below the maintaining balance. We suggest that you go to the nearest UnionBank branch to deposit so that you would not be charged by unnecessary fees. Thank you!`,
+                                        apiToken: '84kbya'
+                                    };
+
+                                    puretext.send(text, function (err, response) {
+                                        if(err) console.log(err);
+                                        else console.log(response)
+                                    })
+
+                                } else {
+                                    
+                                    let HelperOptions = {
+                                        from: 'sampler098@gmail.com',
+                                        to: sender_email,
+                                        subject: 'Transaction Notification from UnionBank',
+                                        text: `You've sent an amount of ${amount1} to ${account_id}. Your current balance is ${pesoValue}. Thank you.`
+                                      };
+                                      
+                                      
+                                    transporter.sendMail(HelperOptions, (error, info) => {
+                                    if (error) {
+                                        return console.log(error);
+                                    }
+                                    console.log("The message was sent!");
+                                    console.log(info);
+                                    });
+
+                                    // SMS Integration
+                                    let text = {
+                                        toNumber: sender_contactno,
+                                        fromNumber: '+19033293627',
+                                        smsBody: `You've sent an amount of ${amount1} to ${account_id}. Your current balance is ${pesoValue}. Thank you.`,
+                                        apiToken: '84kbya'
+                                    };
+
+                                    puretext.send(text, function (err, response) {
+                                        if(err) console.log(err);
+                                        else console.log(response)
+                                    })
+                                }
+
+                            },
+                            function(err1){
+                                console.log(err1);
+                            });
+                    }
                 })
-                
             }
         } )
         

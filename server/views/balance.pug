@@ -13,23 +13,31 @@ html
     body
         main#customersVue(role="main" class="container")
             div.container-fluid.text-center
-                form.form-signin#checkBalance(action="/home" method="POST")
+                form.form-signin#checkBalance(action="/api/accounts/balance" method="POST")
                     .form-group
-                        h1.h3.mb-3.font-weight-normal UnionBank
+                        h1.h3.mb-3.font-weight-normal Please Login
                 
                     .form-group
-                        label.sr-only(for = "inputID" ) Username
-                        input.form-control(type = "text" id="inputID" placeholder = "Username" name="username"
+                        label.sr-only(for = "inputID" ) Account Number
+                        input.form-control(type = "text" id="inputID" placeholder = "Account Number" name="account_id"
                                     required="" autofocus="" v-model = "account_id")
 
                     .form-group
-                        label.sr-only(for = "pin") Password
-                        input.form-control(type = "password" id ="inputPIN" placeholder = "Password" name="password" v-model = "contanctno"
+                        label.sr-only(for = "accountType") Account Type
+                        select.form-control(name = "type_id" v-model = "type_id")
+                            option(value = "" selected disabled hidden) Please choose account type
+                            option(value = "1") Savings
+                            option(value = "2") Checking
+
+                    .form-group
+                        label.sr-only(for = "pin") PIN
+                        input.form-control(type = "text" id ="inputPIN" placeholder = "Contact number" name="contactno" v-model = "contanctno"
                             required="" autofocus)
 
                     .form-group
+
                     button.btn.btn-lg.btn-success.btn-block.signin(name="signin" 
-                            type ="submit" v-on:click="showBalance") Login
+                            type ="submit" v-on:click="showBalance") Display Balance
             
             .container-fluid
                 .footer-copyright.text-center.py-3

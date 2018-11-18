@@ -59,13 +59,13 @@ router.post('/balance', (req, res) => {
                         var fmt = nem.utils.format.nemValue(iBalance);
                         var tBalance = fmt[0] + "." + fmt[1];
                         var balance = Math.round(tBalance*10)/10;
-                        var pesoValue = balance*0.0945*52.73;
+                        var pesoValue = Math.round(balance*0.0945*52.73);
                         console.log(pesoValue)
                         var response1 = {
                             name: JSON.stringify(rows[0].name),
                             balance: pesoValue
                         }
-                        res.send(response1);
+                        res.render("displaybalance",{name: response1.name, balance: response1.balance});
                     },
                     function(err){
                         console.log(err);

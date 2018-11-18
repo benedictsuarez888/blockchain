@@ -1,0 +1,38 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Home
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="bootstrap.js")
+
+
+    body
+        nav.navbar.navbar-light.bg-light
+             span.navbar-brand.mb-0.h1 Hi #{name}!
+
+        br
+        br
+        br
+        br
+        br
+
+        
+        
+        .container-fluid.text-center    
+            .card
+                .card-header 
+                p.text-primary Your current balance is Php #{balance}.
+            br
+        //- .container-fluid.text-center
+        //-     .form-horizontal
+        //-         <a href="/" class="btn btn-primary">Balance Inquiry
+        //- .container-fluid.text-left
+        //-     .form-horizontal
+        //-         <a href="/index" class="btn btn-primary">Transfer Money
+        //- .container-fluid.text-left
+        //-     .form-horizontal
+        //-         <a href="/" class="btn btn-primary"> Logout

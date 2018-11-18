@@ -9,7 +9,7 @@ html
         link(rel="stylesheet" href="bootstrap.css")
         link(rel="stylesheet" href="styleCustomer.css")
         script(name="javascript/text" src="boostrap.js")
-        title Pug
+        title Customers
         //- script(type='text/javascript').
         //-     if (foo) bar(1 + 5)
     body
@@ -29,6 +29,9 @@ html
                         td {{ customer.email }}
                         td
                            a.btn.btn.xs.btn-outline-primary(:href="'/openacct/' + customer.customer_id") Open Account
+            .container-fluid
+                .footer-copyright.text-center.py-3
+                    | &copy; Blockchain Cadet | Future of Banks
 
     script(src="/axios.min.js")
     script(src="/vue.js")

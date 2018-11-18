@@ -1,0 +1,30 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Transaction
+
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel='icon' type='image/png' href='p2p.png')
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="boostrap.js")
+
+    body
+        main#customersVue(role="main" class="container")
+            div.container-fluid.text-center
+                form.form-signin#checkBalance(action="/" method="")
+                    .form-group
+                        h1.h3.mb-3.font-weight-normal.he Please choose your transaction here :)
+                
+                    .form-group
+                        .btn.btn-lg.btn-warning.btn-block(name = "transfer" type = "submit") Money Transfer
+
+                    .form-group
+                        .btn.btn-lg.btn-success.btn-block(name = "checkbal" type = "submit") Check Balance
+    
+            .container-fluid
+                .footer-copyright.text-center.py-3
+                    | &copy; Blockchain Cadet | Future of Banks
+

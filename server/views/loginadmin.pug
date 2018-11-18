@@ -1,0 +1,39 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Admin Login
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="boostrap.js")
+
+    body
+        main#customersVue(role="main" class="container")
+            div.container-fluid.text-center
+                form.form-signin#checkBalance(action="/customer" method="GET")
+                    .form-group
+                        h1.h3.mb-3.font-weight-normal Welcome Admin Please login
+                
+                    .form-group
+                        label.sr-only(for = "inputUser" ) Username
+                        input.form-control(type = "text" id="inputUser" placeholder = "Username" name="username"
+                                    required="" autofocus="" v-model = "username")
+
+                    .form-group
+                        label.sr-only(for = "pass") Password
+                        input.form-control(type = "password" id ="pass" placeholder = "Password" name="contactno" 
+                            v-model = "password" required="" autofocus="")
+
+                    .form-group
+
+                    a.btn.btn-lg.btn-success.btn-block.signin(href = "/customers") Login
+
+            .container-fluid
+                .footer-copyright.text-center.py-3
+                    | &copy; Blockchain Cadet | Future of Banks
+
+               
+
+

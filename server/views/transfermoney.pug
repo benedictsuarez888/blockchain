@@ -1,0 +1,46 @@
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Customer Login
+
+        script(name="javascript/text" src="jquery-3.3.1.min.js")
+        link(rel="stylesheet" href="bootstrap.css")
+        link(rel="stylesheet" href="style.css")
+        script(name="javascript/text" src="boostrap.js")
+
+    body
+        main#customersVue(role="main" class="container")
+            div.container-fluid.text-center
+                form.form-signin#checkBalance(action="/api/transactions/transfer" method="POST")
+                    .form-group
+                        h1.h3.mb-3.font-weight-normal Transfer Money
+
+                    .form-group
+                        label.sr-only(for = "inputID" ) Account Number of ther Sender
+                        input.form-control(type = "number" id="inputID" placeholder = "Account Number of the Sender" name="account_idsender"
+                                    required="" autofocus="" v-model = "account_id")
+                
+                    .form-group
+                        label.sr-only(for = "inputID" ) Account Number of the Receiver
+                        input.form-control(type = "number" id="inputID" placeholder = "Account Number of the Receiver" name="account_idx"
+                                    required="" autofocus="" v-model = "account_id")
+
+                    .form-group
+                        label.sr-only(for = "inputID" ) Amount
+                        input.form-control(type = "number" id="inputID" placeholder = "Amount" name="amount"
+                                    required="" autofocus="" v-model = "account_id")
+
+                    .form-group
+
+                    button.btn.btn-lg.btn-success.btn-block.signin(name="signin" 
+                            type ="submit" v-on:click="showBalance") Transfer Money
+            
+            .container-fluid
+                .footer-copyright.text-center.py-3
+                    | &copy; Blockchain Cadet | Future of Banks
+
+               
+
+

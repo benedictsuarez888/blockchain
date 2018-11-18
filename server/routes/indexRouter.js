@@ -41,6 +41,10 @@ router.get('/displaybalance', (req, res) => {
 	res.render("displaybalance.pug");
 })
 
+router.get('/transfermoney', (req, res) => {
+	res.render("transfermoney.pug");
+})
+
 /**
  * Admin Routers
  */

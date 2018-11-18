@@ -29,19 +29,23 @@ CREATE TABLE `account` (
   `interest_rate` decimal(5,2) DEFAULT NULL,
   `overdraft` int(11) DEFAULT NULL,
   `last_access` timestamp(6) NULL DEFAULT NULL,
+  `keyPair` varchar(255) DEFAULT NULL,
+  `addressKey` varchar(255) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   KEY `typeid_idx` (`type_id`),
   CONSTRAINT `typeid` FOREIGN KEY (`type_id`) REFERENCES `account_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `account`
 --
 
--- LOCK TABLES `account` WRITE;
+LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,1,20000,15.00,NULL,NULL),(2,2,50000,NULL,5000,NULL);
+INSERT INTO `account` VALUES (193485335,1,1000,NULL,NULL,NULL,'736d3c46decf7b9a980d93684c14612bc56bf93ff93de41293b5ff3411b211cb','TBEPSV2YJIZZCMRQ2IFQGTDRJASSNCOWOXNB3OQA','justineb','ubpcadet'),(204345812,1,10000,NULL,NULL,NULL,'43589bd9906d5715ec232b52f022a362ad24a07aecbf8a6fa2a152c6bf9e6148','TDZEPCTNRBOH4A6LENPZW7RTQZD3DKB62AEYNZXK','jefferwing','ubpcadet');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +67,7 @@ CREATE TABLE `account_type` (
 -- Dumping data for table `account_type`
 --
 
--- LOCK TABLES `account_type` WRITE;
+LOCK TABLES `account_type` WRITE;
 /*!40000 ALTER TABLE `account_type` DISABLE KEYS */;
 INSERT INTO `account_type` VALUES (1,'Savings'),(2,'Checking');
 /*!40000 ALTER TABLE `account_type` ENABLE KEYS */;
@@ -81,17 +85,18 @@ CREATE TABLE `customer` (
   `name` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `contactno` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `customer`
 --
 
--- LOCK TABLES `customer` WRITE;
+LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Juan Dela Cruz','7114 Kundiman Street, Sampaloc','09064763492');
+INSERT INTO `customer` VALUES (28,'Justine Berango','Malabon City','+639064763492','benedictsuarez888@gmail.com'),(29,'Jefferwin Gonong','Mandaluyong City','+6390434342343','jeff@gmail.com');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,9 +119,9 @@ CREATE TABLE `customer_account` (
 -- Dumping data for table `customer_account`
 --
 
--- LOCK TABLES `customer_account` WRITE;
+LOCK TABLES `customer_account` WRITE;
 /*!40000 ALTER TABLE `customer_account` DISABLE KEYS */;
-INSERT INTO `customer_account` VALUES (1,1,NULL),(1,2,NULL);
+INSERT INTO `customer_account` VALUES (28,193485335,NULL),(29,204345812,NULL);
 /*!40000 ALTER TABLE `customer_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,16 +140,15 @@ CREATE TABLE `transaction` (
   PRIMARY KEY (`transaction_id`),
   KEY `accountid_idx` (`account_idx`),
   CONSTRAINT `account` FOREIGN KEY (`account_idx`) REFERENCES `account` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `transaction`
 --
 
--- LOCK TABLES `transaction` WRITE;
+LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (1,NULL,20000,1);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -157,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-12  9:34:15
+-- Dump completed on 2018-11-19  2:57:22

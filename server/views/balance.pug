@@ -15,7 +15,7 @@ html
             div.container-fluid.text-center
                 form.form-signin#checkBalance(action="/api/accounts/balance" method="POST")
                     .form-group
-                        h1.h3.mb-3.font-weight-normal Please Login
+                        h1.h3.mb-3.font-weight-normal Verification
                 
                     .form-group
                         label.sr-only(for = "inputID" ) Account Number
@@ -37,7 +37,7 @@ html
                     .form-group
 
                     button.btn.btn-lg.btn-success.btn-block.signin(name="signin" 
-                            type ="submit" v-on:click="showBalance") Display Balance
+                            type ="submit" v-on:click="showBalance") View Balance
             
             .container-fluid
                 .footer-copyright.text-center.py-3
